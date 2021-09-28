@@ -1,0 +1,51 @@
+server:
+  servlet:
+    context-path: /cinema
+  port: 8100
+
+## Application
+spring:                                                                                                   
+  mvc:
+    throw-exception-if-no-handler-found: true 
+#Nome del microservizio                                                  
+  application:
+    name: webapp-cinema-microservice
+#imponi ad hibernate di creare le statemant sql in UPDATE, QUINDI CREA SE non esiste e aggiorna se esiste
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties: 
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true 
+        jdbc:
+          time_zone: UTC 
+# inoltre si specifica qual è l'url, username e password per connettersi al db
+  datasource:
+    url: jdbc:mysql://localhost:3306/academy?useLegacyDatetimeCode=false 
+    username: academy
+    password: academy
+  ### SECURITY ###
+  security:
+    user:
+      name: academy
+      password: academy
+      roles: manager
+  ### SECURITY ###
+## Actuator api exposed
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info,health,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when-authorized
+  server:
+    port: 9100
+    base-path: /health
+
+
+
+
+
